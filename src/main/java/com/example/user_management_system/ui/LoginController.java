@@ -1,5 +1,6 @@
 package com.example.user_management_system.ui;
 
+import com.example.user_management_system.registration.RegistrationController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -8,7 +9,7 @@ public class LoginController {
 
     @GetMapping("/home")
     public String viewLoginPage() {
-            return "login";
+        return "login";
         }
 
     @GetMapping("/profile_home")

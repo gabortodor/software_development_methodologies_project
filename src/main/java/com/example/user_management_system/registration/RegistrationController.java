@@ -2,13 +2,18 @@ package com.example.user_management_system.registration;
 
 import com.example.user_management_system.user.User;
 import lombok.AllArgsConstructor;
+
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.charset.Charset;
+
 
 @RestController
 @RequestMapping
@@ -17,6 +22,23 @@ public class RegistrationController {
 
     private final RegistrationService registrationService;
 
+    private static String currentException;
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ModelAndView handleError(HttpServletRequest req, Exception ex){
+        ModelAndView modelAndView=new ModelAndView("redirect:/home");
+        currentException=ex.getMessage();
+        return modelAndView;
+    }
+
+
+    public static String getCurrentException(){
+        return currentException;
+    }
+
+    public static void setCurrentExceptionToNull(){
+        currentException=null;
+    }
 
     @PostMapping(path = "/home", params = "signUp")
     public ModelAndView postRegistration(@ModelAttribute Request request) {
