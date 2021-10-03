@@ -1,18 +1,19 @@
 package com.example.user_management_system.registration;
 
-import com.example.user_management_system.user.User;
 import lombok.AllArgsConstructor;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+
 
 
 @RestController
@@ -84,14 +85,5 @@ public class RegistrationController {
         return password.equals(password_confirm);
     }
 
-    public String generateCustomHomePage(User user){
-        try {
-            return String.format(StreamUtils.copyToString(new ClassPathResource("templates/profile_home.html").getInputStream(), Charset.defaultCharset()), user.getFirstName(),user.getLastName(),user.getEmail());
-        }
-        catch (IOException e){
-            return "Cannot load home page";
-        }
-
-    }
 
 }
